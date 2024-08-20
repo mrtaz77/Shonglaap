@@ -18,3 +18,49 @@ body {
 			transparent,
 			rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
+
+.container-homepage {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.heading-homepage {
+	margin-bottom: 16px;
+}
+
+.text-homepage {
+	margin-bottom: 32px;
+	text-align: center;
+}
+
+.button-logout {
+	background-color: #6b7280;
+	/* Gray color */
+	color: white;
+	padding: 10px 20px;
+	font-size: 14px;
+	border-radius: 8px;
+	font-weight: 500;
+	cursor: pointer;
+	text-align: center;
+	border: none;
+	outline: none;
+	transition: background-color 0.3s ease;
+	/* Smooth transition */
+}
+
+.button-logout:hover {
+	background-color: #ef4444;
+	/* Red color on hover */
+}
+
+.button-logout:focus {
+	outline: 4px solid #a7f3d0;
+	/* Ring color */
+	background-color: #ef4444;
+	/* Red color on focus */
+}
