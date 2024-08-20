@@ -4,14 +4,16 @@ import { notFound } from "next/navigation";
 import { clientConfig, serverConfig } from "../config";
 
 export default async function Home() {
-	const tokens = await getTokens(cookies(), {
+	const cookie = cookies();
+	const tokens = await getTokens(cookie, {
 		apiKey: clientConfig.apiKey,
 		cookieName: serverConfig.cookieName,
 		cookieSignatureKeys: serverConfig.cookieSignatureKeys,
 		serviceAccount: serverConfig.serviceAccount,
 	});
 
-	if (!tokens) {
+	if (!tokens || !tokens.decodedToken) {
+		console.error("Token not found or invalid.");
 		notFound();
 	}
 

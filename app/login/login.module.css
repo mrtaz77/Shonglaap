@@ -1,0 +1,57 @@
+/* login.module.css */
+
+.container {
+	height: 100vh;
+}
+
+.leftSide {
+	background-color: #F7F9FC;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logoImage {
+	max-width: 100%;
+	height: auto;
+}
+
+.rightSide {
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.signInButton {
+	margin-top: 20px;
+	background-color: #2D7CEE;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.signInButton:hover {
+	background-color: #00BF56;
+}
+
+.googleIcon {
+	margin-right: 8px;
+}
+
+.signUpLink {
+	color: #00BF56;
+	text-decoration: none;
+	transition: text-decoration 0.3s ease;
+}
+
+.signUpLink:hover {
+	text-decoration: underline;
+}
+
+.centeredText {
+	text-align: center;
+	margin-top: 16px;
+}
