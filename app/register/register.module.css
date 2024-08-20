@@ -1,0 +1,62 @@
+/* register.module.css */
+
+.container {
+	height: 100vh;
+}
+
+.leftSide {
+	background-color: #F7F9FC;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.rightSide {
+	background-color: #000;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.logoImage {
+	max-width: 100%;
+	height: auto;
+}
+
+.signInButton {
+	margin-top: 20px;
+	background-color: #007bff;
+	/* Initial blue color */
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+}
+
+.signInButton:hover {
+	background-color: #28a745;
+	/* Green color on hover */
+}
+
+.googleIcon {
+	margin-right: 8px;
+	/* Space between icon and text */
+}
+
+.signInLink {
+	color: #00BF56;
+	text-decoration: none;
+	transition: text-decoration 0.3s ease;
+}
+
+.signInLink:hover {
+	text-decoration: underline;
+}
+
+.centeredText {
+	text-align: center;
+	margin-top: 16px;
+	/* Equivalent to 2 spacing units in MUI */
+}
