@@ -2,6 +2,7 @@
 .lh/
 secret/
 .vscode/
+.env*
 
 # dependencies
 /node_modules
