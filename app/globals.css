@@ -38,7 +38,7 @@ body {
 }
 
 .button-logout {
-	background-color: #6b7280;
+	background-color: #a149ff;
 	/* Gray color */
 	color: white;
 	padding: 10px 20px;
@@ -63,4 +63,13 @@ body {
 	/* Ring color */
 	background-color: #ef4444;
 	/* Red color on focus */
+}
+
+.appbar {
+	background-color: #ff00ee;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1100; /* Ensure the AppBar stays on top */
 }
