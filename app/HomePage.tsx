@@ -9,7 +9,7 @@ import {
 	Typography,
 	TextField,
 	Box,
-	Stack
+	Stack,
 } from "@mui/material";
 
 import { signOut } from "firebase/auth";
@@ -52,9 +52,67 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		}
 	};
 
+	const prepareMessageData = (msg: string) => {
+		return {
+			messages: [...messages.slice(1), { role: 'user', content: msg }],
+		};
+	};
+
+	const callChatAPI = async (data: { messages: { role: string; content: string }[] }) => {
+		const response = await fetch("/api/chat", {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		});
+		if (!response.ok) {
+			throw new Error('Network response was not ok');
+		}
+		return response;
+	};
+
+	const handleAPIResponse = async (response: Response) => {
+		const reader = response.body?.getReader();
+		const decoder = new TextDecoder();
+		if (reader) {
+			while (true) {
+				const { done, value } = await reader.read();
+				if (done) break;
+				const text = decoder.decode(value, { stream: true });
+				setMessages((messages) => {
+					let lastMessage = messages[messages.length - 1];
+					let otherMessages = messages.slice(0, messages.length - 1);
+					return [
+						...otherMessages,
+						{ ...lastMessage, content: lastMessage.content + text },
+					];
+				})
+			}
+		}
+	};
+
 	const sendMessage = async () => {
-		// We'll implement this function in the next section
-	}
+		if (!message.trim()) return;
+		const msg = message.trim();
+		setMessage('');
+		setMessages((prevMessages) => [
+			...prevMessages,
+			{ role: 'user', content: msg },
+			{ role: 'assistant', content: '' },
+		]);
+		try {
+			const messageData = prepareMessageData(msg);
+			const response = await callChatAPI(messageData);
+			await handleAPIResponse(response);
+		} catch (error) {
+			console.error('Failed to send message:', error);
+			setMessages((messages) => [
+				...messages,
+				{ role: 'assistant', content: "I'm sorry, but I encountered an error. Please try again later." },
+			])
+		}
+	};
 
 	return (
 		<>
@@ -99,8 +157,8 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 								<Box
 									key={index}
 									className={`message ${message.role === 'assistant'
-											? 'message-received'
-											: 'message-sent'
+										? 'message-received'
+										: 'message-sent'
 										}`}
 								>
 									{message.content}
@@ -115,6 +173,9 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 								onChange={(e) => setMessage(e.target.value)}
 								variant="outlined"
 								className="message-input"
+								multiline
+								minRows={1}
+								maxRows={4}
 							/>
 							<Button
 								variant="contained"

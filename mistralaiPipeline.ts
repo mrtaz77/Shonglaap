@@ -1,5 +1,4 @@
 import { HfInference } from '@huggingface/inference';
-import { ReadableStream } from 'web-streams-polyfill'; // Ensure you have the polyfill if using an older environment
 
 const inference = new HfInference(process.env.HF_TOKEN);
 
@@ -39,35 +38,11 @@ Sub-example #2: "If you need help with technical concepts, refer to our guide on
 `;
 
 export async function getChatCompletionStream(messages: { role: string; content: string }[]) {
-	const chatCompletionStream = inference.chatCompletionStream({
+	const responseStream = inference.chatCompletionStream({
 		model: 'mistralai/Mistral-Nemo-Instruct-2407',
 		messages: [{ role: 'system', content: systemPrompt }, ...messages],
 		max_tokens: 1028,
 	});
 
-	return new ReadableStream<Uint8Array>({
-		async start(controller: ReadableStreamDefaultController<Uint8Array>) {
-			const encoder = new TextEncoder();
-			try {
-				for await (const chunk of chatCompletionStream) {
-					const content = chunk.choices[0]?.delta?.content;
-					if (content) {
-						const text = encoder.encode(content);
-						controller.enqueue(text);
-					}
-				}
-			} catch (err: unknown) {
-				if (err instanceof Error) {
-					const errorMessage = `Failed to fetch completion. Error: ${err.message}`;
-					controller.enqueue(encoder.encode(errorMessage));
-				} else {
-					const errorMessage = "An unknown error occurred.";
-					controller.enqueue(encoder.encode(errorMessage));
-				}
-				controller.error(err);
-			} finally {
-				controller.close();
-			}
-		}
-	});
+	return responseStream;
 }

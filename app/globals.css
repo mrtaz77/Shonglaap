@@ -160,6 +160,7 @@ body {
 	background-color: #F0F0F0 !important;
 	border: none !important; /* Remove the border */
 	box-shadow: none !important; /* Remove the box-shadow */
+	overflow: hidden;
 }
 
 .message-input .MuiOutlinedInput-root {
