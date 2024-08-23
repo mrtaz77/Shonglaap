@@ -14,7 +14,7 @@ import {
 
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase"; // Adjust the import path to your Firebase config
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import MarkdownRenderer from "@/components/markdown-renderer";
 
 interface HomePageProps {
@@ -33,6 +33,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		},
 	])
 	const [message, setMessage] = useState('')
+	const messageListRef = useRef<HTMLDivElement>(null);
 
 	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value);
@@ -93,6 +94,17 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		}
 	};
 
+	const handleErrorMessage = () => {
+		setMessages((messages) => {
+			let lastMessage = messages[messages.length - 1];
+			let otherMessages = messages.slice(0, messages.length - 1);
+			return [
+				...otherMessages,
+				{ ...lastMessage, content: "I'm sorry, but I encountered an error. Please try again later." },
+			];
+		})
+	}
+
 	const sendMessage = async () => {
 		if (!message.trim()) return;
 		const msg = message.trim();
@@ -108,12 +120,19 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 			await handleAPIResponse(response);
 		} catch (error) {
 			console.error('Failed to send message:', error);
-			setMessages((messages) => [
-				...messages,
-				{ role: 'assistant', content: "I'm sorry, but I encountered an error. Please try again later." },
-			])
+			handleErrorMessage();
 		}
 	};
+
+	const scrollToBottom = () => {
+		if (messageListRef.current) {
+			messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+		}
+	};
+
+	useEffect(() => {
+		scrollToBottom();
+	}, [messages]);
 
 	return (
 		<>
@@ -153,7 +172,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 			<Container maxWidth="md" className="container-homepage">
 				<Box className="chat-box">
 					<Stack className="chat-container">
-						<Stack className="message-list">
+						<Stack className="message-list" ref={messageListRef}>
 							{messages.map((message, index) => (
 								<Box
 									key={index}
