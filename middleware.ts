@@ -13,16 +13,18 @@ export async function middleware(request: NextRequest) {
 		cookieSignatureKeys: serverConfig.cookieSignatureKeys,
 		cookieSerializeOptions: serverConfig.cookieSerializeOptions,
 		serviceAccount: serverConfig.serviceAccount,
-		handleValidToken: async ({ token, decodedToken }, headers) => {
+		handleValidToken: async () => {
 			if (PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
 				return redirectToHome(request);
 			}
 
-			return NextResponse.next({
-				request: {
-					headers
-				}
+			// Create a new NextResponse and clone the headers from the request
+			const response = NextResponse.next();
+			request.headers.forEach((value, key) => {
+				response.headers.set(key, value);
 			});
+
+			return response;
 		},
 		handleInvalidToken: async (reason) => {
 			console.info('Missing or malformed credentials', { reason });
