@@ -34,6 +34,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 	])
 	const [message, setMessage] = useState('')
 	const messageListRef = useRef<HTMLDivElement>(null);
+	const [isLoading, setIsLoading] = useState(false)
 
 	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value);
@@ -106,7 +107,8 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 	}
 
 	const sendMessage = async () => {
-		if (!message.trim()) return;
+		if (!message.trim() || isLoading) return;
+		setIsLoading(true);
 		const msg = message.trim();
 		setMessage('');
 		setMessages((prevMessages) => [
@@ -121,6 +123,8 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		} catch (error) {
 			console.error('Failed to send message:', error);
 			handleErrorMessage();
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -196,13 +200,15 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 								multiline
 								minRows={1}
 								maxRows={4}
+								disabled={isLoading}
 							/>
 							<Button
 								variant="contained"
 								onClick={sendMessage}
 								className="send-button"
+								disabled={isLoading}
 							>
-								Send
+								{isLoading ? 'Sending...' : 'Send'}
 							</Button>
 						</Stack>
 					</Stack>
