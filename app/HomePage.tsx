@@ -8,6 +8,8 @@ import {
 	Container,
 	Typography,
 	TextField,
+	Box,
+	Stack
 } from "@mui/material";
 
 import { signOut } from "firebase/auth";
@@ -23,6 +25,13 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 	const router = useRouter();
 	const [username, setUsername] = useState(userDisplayName || "");
 	const [isEditingUsername, setIsEditingUsername] = useState(!userDisplayName);
+	const [messages, setMessages] = useState([
+		{
+			role: 'assistant',
+			content: "Hi! I'm the Headstarter support assistant. How can I help you today?",
+		},
+	])
+	const [message, setMessage] = useState('')
 
 	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setUsername(event.target.value);
@@ -43,6 +52,10 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		}
 	};
 
+	const sendMessage = async () => {
+		// We'll implement this function in the next section
+	}
+
 	return (
 		<>
 			<AppBar position="static" className="appbar">
@@ -54,16 +67,17 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 							placeholder="Enter Username"
 							value={username}
 							onChange={handleUsernameChange}
-							onBlur={handleUsernameSubmit} // Save username on blur
+							onBlur={handleUsernameSubmit}
+							className="text-field-custom"
 							sx={{ flexGrow: 1 }}
 						/>
 					) : (
 						<Typography
-							variant="h6"
+							variant="h5"
 							sx={{ flexGrow: 1, cursor: "pointer" }}
-							onClick={() => setIsEditingUsername(true)} // Allow editing username on click
+							onClick={() => setIsEditingUsername(true)}
 						>
-							{username || email}
+							<b>{username || email}</b>
 						</Typography>
 					)}
 
@@ -78,12 +92,40 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 			</AppBar>
 
 			<Container maxWidth="md" className="container-homepage">
-				<Typography variant="h4" className="heading-homepage">
-					Super secure home page
-				</Typography>
-				<Typography variant="body1" className="text-homepage">
-					Only <strong>{email}</strong> holds the magic key to this kingdom!
-				</Typography>
+				<Box className="chat-box">
+					<Stack className="chat-container">
+						<Stack className="message-list">
+							{messages.map((message, index) => (
+								<Box
+									key={index}
+									className={`message ${message.role === 'assistant'
+											? 'message-received'
+											: 'message-sent'
+										}`}
+								>
+									{message.content}
+								</Box>
+							))}
+						</Stack>
+						<Stack direction={'row'} spacing={2}>
+							<TextField
+								label="Message"
+								fullWidth
+								value={message}
+								onChange={(e) => setMessage(e.target.value)}
+								variant="outlined"
+								className="message-input"
+							/>
+							<Button
+								variant="contained"
+								onClick={sendMessage}
+								className="send-button"
+							>
+								Send
+							</Button>
+						</Stack>
+					</Stack>
+				</Box>
 			</Container>
 		</>
 	);

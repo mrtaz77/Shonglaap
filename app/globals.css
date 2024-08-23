@@ -8,7 +8,7 @@
 	:root {
 		--foreground-rgb: 255, 255, 255;
 		--background-start-rgb: 0, 0, 0;
-		--background-end-rgb: 0, 0, 0;
+		--background-end-rgb: 79, 90, 109;
 	}
 }
 
@@ -38,7 +38,7 @@ body {
 }
 
 .button-logout {
-	background-color: #a149ff;
+	background-color: #1d1717;
 	/* Gray color */
 	color: white;
 	padding: 10px 20px;
@@ -66,10 +66,139 @@ body {
 }
 
 .appbar {
-	background-color: #ff00ee;
+	background-color: #8080f2;
 	width: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: 1100; /* Ensure the AppBar stays on top */
+}
+
+.text-field-custom .MuiOutlinedInput-root {
+    border-color: white;
+    color: white;
+}
+
+.text-field-custom .MuiOutlinedInput-root fieldset {
+    border-color: white;
+}
+
+.text-field-custom .MuiOutlinedInput-root:hover fieldset {
+    border-color: white;
+}
+
+.text-field-custom .MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: white;
+}
+
+.text-field-custom .MuiInputBase-input {
+    color: white;
+}
+
+.text-field-custom .MuiInputLabel-root {
+    color: white;
+}
+
+.text-field-custom .MuiOutlinedInput-notchedOutline {
+    border-color: white;
+}
+
+.chat-box {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.chat-container {
+	width: 400px;
+	height: 600px;
+	border: 1px solid #625555;
+	border-radius: 12px;
+	padding: 16px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	background-color: rgb(221, 211, 211);
+}
+
+.message-list {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: auto;
+	max-height: 100%;
+}
+
+.message-list::-webkit-scrollbar {
+	display: none;
+}
+
+
+.message {
+	border-radius: 20px;
+	padding: 10px 15px;
+	max-width: 75%;
+	word-break: break-word;
+	margin-bottom: 8px;
+}
+
+.message-sent {
+	background-color: #d982f4;
+	color: white;
+	align-self: flex-end;
+}
+
+.message-received {
+	background-color: #b1ffb9;
+	color: black;
+	align-self: flex-start;
+}
+
+.message-input {
+	border-radius: 20px !important;
+	background-color: #F0F0F0 !important;
+	border: none !important; /* Remove the border */
+	box-shadow: none !important; /* Remove the box-shadow */
+}
+
+.message-input .MuiOutlinedInput-root {
+	&:hover fieldset {
+		border-color: transparent; /* Remove border on hover */
+	}
+	&.Mui-focused fieldset {
+		border-color: transparent; /* Remove border when focused */
+	}
+}
+
+.message-input .MuiOutlinedInput-notchedOutline {
+	border: none; /* Remove the default outline */
+}
+
+.message-input .MuiInputLabel-root {
+	color: #000000; /* Set a color for the label */
+	position: absolute;
+	top: 15px; /* Move the label out of the input box */
+	left: 20px; /* Adjust the label position to the left */
+	transform: none; /* Prevent any transformation */
+	font-size: 16px; /* Adjust the font size */
+}
+
+.message-input .MuiInputLabel-root.Mui-focused {
+	color: #000000; /* Keep the label color consistent when focused */
+	transform: translateY(-40px); /* Ensure it stays out of the box */
+	font-size: 14px; /* Make the label slightly smaller when focused */
+}
+
+.send-button {
+	border-radius: 10px;
+	background-color: #55CAF8;
+	color: white;
+	font-weight: bold;
+	padding: 10px 20px;
+	box-shadow: none;
+}
+
+.send-button:hover {
+	background-color: #007AFF;
 }
