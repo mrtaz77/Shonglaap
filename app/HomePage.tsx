@@ -15,6 +15,7 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase"; // Adjust the import path to your Firebase config
 import { useState } from "react";
+import MarkdownRenderer from "@/components/markdown-renderer";
 
 interface HomePageProps {
 	email?: string;
@@ -161,7 +162,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 										: 'message-sent'
 										}`}
 								>
-									{message.content}
+									<MarkdownRenderer content={message.content} />
 								</Box>
 							))}
 						</Stack>
