@@ -74,7 +74,7 @@ export default function LoginPage() {
 					{/* New section: Don't have an account? */}
 					<Box className={styles.centeredText}>
 						<Typography variant="body2">
-							Don't have an account?{' '}
+							Don&#39;t have an account?{' '}
 							<Link href="/register" className={styles.signUpLink}>
 								Sign Up
 							</Link>
