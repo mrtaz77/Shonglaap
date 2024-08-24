@@ -14,8 +14,9 @@ import {
 
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase"; // Adjust the import path to your Firebase config
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import MarkdownRenderer from "@/components/markdown-renderer";
+
 
 interface HomePageProps {
 	email?: string;
@@ -134,6 +135,13 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 		}
 	};
 
+	const handleKeyPress = (event: KeyboardEvent<HTMLDivElement>) => {
+		if (event.key === 'Enter' && !event.shiftKey) {
+		  event.preventDefault();
+		  sendMessage();
+		}
+	  };
+
 	useEffect(() => {
 		scrollToBottom();
 	}, [messages]);
@@ -194,6 +202,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 								label={!message ? "Message" : ""}
 								fullWidth
 								value={message}
+								onKeyDown={handleKeyPress}
 								onChange={(e) => setMessage(e.target.value)}
 								variant="outlined"
 								className={`message-input ${message ? 'not-empty' : ''}`}
