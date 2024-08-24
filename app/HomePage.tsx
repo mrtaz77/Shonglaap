@@ -29,7 +29,7 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 	const [messages, setMessages] = useState([
 		{
 			role: 'assistant',
-			content: "Hi! I'm the Headstarter support assistant. How can I help you today?",
+			content: "Hi! I'm the Shonglaap support assistant. How can I help you today?",
 		},
 	])
 	const [message, setMessage] = useState('')
@@ -191,16 +191,19 @@ export default function HomePage({ email, userDisplayName }: HomePageProps) {
 						</Stack>
 						<Stack direction={'row'} spacing={2}>
 							<TextField
-								label="Message"
+								label={!message ? "Message" : ""}
 								fullWidth
 								value={message}
 								onChange={(e) => setMessage(e.target.value)}
 								variant="outlined"
-								className="message-input"
+								className={`message-input ${message ? 'not-empty' : ''}`}
 								multiline
 								minRows={1}
 								maxRows={4}
 								disabled={isLoading}
+								InputLabelProps={{
+									shrink: false, // Prevents label from shrinking when typing starts
+								}}
 							/>
 							<Button
 								variant="contained"

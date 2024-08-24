@@ -72,36 +72,37 @@ body {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1100; /* Ensure the AppBar stays on top */
+	z-index: 1100;
+	/* Ensure the AppBar stays on top */
 }
 
 .text-field-custom .MuiOutlinedInput-root {
-    border-color: white;
-    color: white;
+	border-color: white;
+	color: white;
 }
 
 .text-field-custom .MuiOutlinedInput-root fieldset {
-    border-color: white;
+	border-color: white;
 }
 
 .text-field-custom .MuiOutlinedInput-root:hover fieldset {
-    border-color: white;
+	border-color: white;
 }
 
 .text-field-custom .MuiOutlinedInput-root.Mui-focused fieldset {
-    border-color: white;
+	border-color: white;
 }
 
 .text-field-custom .MuiInputBase-input {
-    color: white;
+	color: white;
 }
 
 .text-field-custom .MuiInputLabel-root {
-    color: white;
+	color: white;
 }
 
 .text-field-custom .MuiOutlinedInput-notchedOutline {
-    border-color: white;
+	border-color: white;
 }
 
 .chat-box {
@@ -159,37 +160,59 @@ body {
 .message-input {
 	border-radius: 20px !important;
 	background-color: #F0F0F0 !important;
-	border: none !important; /* Remove the border */
-	box-shadow: none !important; /* Remove the box-shadow */
+	border: none !important;
+	/* Remove the border */
+	box-shadow: none !important;
+	/* Remove the box-shadow */
 	overflow: hidden;
 }
 
 .message-input .MuiOutlinedInput-root {
 	&:hover fieldset {
-		border-color: transparent; /* Remove border on hover */
+		border-color: transparent;
+		/* Remove border on hover */
 	}
+
 	&.Mui-focused fieldset {
-		border-color: transparent; /* Remove border when focused */
+		border-color: transparent;
+		/* Remove border when focused */
 	}
 }
 
 .message-input .MuiOutlinedInput-notchedOutline {
-	border: none; /* Remove the default outline */
+	border: none;
+	/* Remove the default outline */
 }
 
-.message-input .MuiInputLabel-root {
-	color: #000000; /* Set a color for the label */
-	position: absolute;
-	top: 15px; /* Move the label out of the input box */
-	left: 20px; /* Adjust the label position to the left */
-	transform: none; /* Prevent any transformation */
-	font-size: 16px; /* Adjust the font size */
+/* Original label style */
+.message-input label.MuiInputLabel-root {
+	color: black;
+	/* Set label text color */
 }
 
-.message-input .MuiInputLabel-root.Mui-focused {
-	color: #000000; /* Keep the label color consistent when focused */
-	transform: translateY(-40px); /* Ensure it stays out of the box */
-	font-size: 14px; /* Make the label slightly smaller when focused */
+/* Ensure the label is hidden when the field is focused */
+.message-input .MuiInputLabel-shrink {
+	display: none;
+}
+
+/* Hide label when the input has content */
+.message-input.not-empty label.MuiInputLabel-root {
+	display: none;
+}
+
+/* Placeholder style (hidden by default) */
+.message-input input::placeholder {
+	color: transparent;
+}
+
+/* When the input is focused or active, the placeholder will be hidden */
+.message-input input:focus::placeholder {
+	color: transparent;
+}
+
+/* When the input is empty and not focused, the label will act as a placeholder */
+.message-input:not(.not-empty) input::placeholder {
+	color: black;
 }
 
 .send-button {
