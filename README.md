@@ -45,3 +45,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 npm config set fetch-retry-mintimeout 20000
 npm config set fetch-retry-maxtimeout 120000
 ```
+
+# AWS EC2 hosting
+1. Tutorial :
+	- [Easily Deploy Full Stack Node.js Apps on AWS EC2 | Step-by-Step Tutorial](https://www.youtube.com/watch?v=nQdyiK7-VlQ)
+	- [Deploying Full Stack Apps to AWS EC2 with SQL Databases](https://www.sammeechward.com/deploying-full-stack-js-to-aws-ec2)
+
+2. Successfully deployed to AWS servers at [http://3.25.122.110/login](http://3.25.122.110/login)
+
+- ![aws-hosted](https://github.com/user-attachments/assets/e448e7cb-e299-4989-957f-bd56dd0a7366)
